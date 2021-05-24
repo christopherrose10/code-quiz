@@ -1,0 +1,1 @@
+var timerEl = document.getElementById('countdown');

@@ -1,0 +1,40 @@
+:root {
+    --primary-color: rgb(1, 0, 85);
+    --secondary-color: rgb(54, 54, 54);
+    --text-color: rgb(27, 255, 206);
+    --font: 'Roboto Slab';
+}
+
+.body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: var(--font);
+}
+
+
+.header {
+    padding: 20px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scoreboard, .timer, .score {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.timer, .score {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.main {
+    margin: auto;
+    width: 100%;
+    height: 100px;
+    text-align: center;  
+}
