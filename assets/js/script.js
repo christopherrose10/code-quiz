@@ -1,6 +1,13 @@
 var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
+var questionEl = document.getElementById('question-prompt');
+var answerEl = document.getElementById('answers-prompt');
+var resultEl = document.getElementById('result-prompt');
+var buttonEl1 = document.getElementById('btn1');
+var buttonEl2 = document.getElementById('btn2');
+var buttonEl3 = document.getElementById('btn3');
+var buttonEl4 = document.getElementById('btn4');
 var questions = [
     
     {q: "Inside which HTML element do we put the JavaScript?", 
@@ -55,8 +62,10 @@ var questions = [
 
 ];
 
+
+
 function countdown() {
-    var timeLeft = 90;
+    var timeLeft = 10;
 
 
     var timeInterval = setInterval(function () {
@@ -64,28 +73,56 @@ function countdown() {
         timeLeft--;
     }, 1000);
 
-
+    if(timeLeft <= 0)
+    quizEnd();
 }
 
+var questionNumber = 0;
 var count = 0;
 
-var score = function () {
+function score() {
+
+    countdown();
 
     for (var i = 0; i < questions.length + 1; i++) {
-        var answer = confirm(questions[i].q);
-        if (
-            (answer === true && questions[i].a === 't') || answer === false && questions[i].a === 'f') {
+        questionEl.textContent = [questions[i].q];
+        buttonEl1.textContent = [questions[i].a[0]];
+        buttonEl2.textContent = [questions[i].a[1]];
+        buttonEl3.textContent = [questions[i].a[2]];
+        buttonEl4.textContent = [questions[i].a[3]];
+
+        var answerSelected = document.addEventListener("click", function(event){
+            event.preventDefault();
+        });        
+
+        if (answerSelected === questions[i].correctAnswer) {
             count++;
-            alert('Correct');
-            console.log(answer);
+            resultEl.textContent = "Correct!";
+            console.log(answerSelected);
         } else {
-            alert('Wrong!');
-            console.log(answer);
+            resultEl.textContent = "Wrong!";
+            console.log(answerSelected);
+        }
+
+        if (questionNumber === questions.length) {
+            quizEnd();
         }
     }
+};
 
+function quizEnd () {
+    clearInterval(timeInterval);
+    questionEl.textContent = "Your score is " + count + "/" + questions.length;
+
+    var saveInitials = answerEl.style.display = "block";
+    answerEl.textContent = "Enter your initials";
+    var submitInitials = document.createElement("start");
+    submitInitials.textContent = "Submit";
+    saveScore();
 }
 
+function saveScore () {
+    localStorage.setItem("Initials", JSON.stringify(saveInitials && count))
+};
 
-startBtn.onclick = countdown;
-
+startBtn.onclick = score;
