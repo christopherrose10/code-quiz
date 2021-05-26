@@ -18,16 +18,22 @@
     </header>
 
     <main class="main">
-        <button id="start">Start</button></br>
+        <div id="begin">
+        <button id="start">Start</button>
+        </div></br>
         <section id="question-prompt" style="padding-top: 20px;">
         </section></br>
-        <section id="answers-prompt">
-            <button name= "answer" id="btn1"></button>
+        <section class="invisible" id="answers-prompt">
+            <!-- <button name= "answer" id="btn1"></button>
             <button name= "answer" id="btn2"></button>
             <button name= "answer" id="btn3"></button>
-            <button name= "answer" id="btn4"></button>
+            <button name= "answer" id="btn4"></button> -->
         </section></br>
         <section id="result-prompt">
+        </section>
+        <section id="input-initials" class="invisible">
+            <textarea name="" id="initials"></textarea>
+            <button id="submit">Submit</button>
         </section>
     </main>
     <script src="./assets/js/script.js"></script>

@@ -57,3 +57,7 @@ main button:hover {
     color: var(--primary-color);
     border-color: var(--text-color);
 }
+
+.invisible {
+    display: none;
+}

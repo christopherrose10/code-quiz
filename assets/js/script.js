@@ -4,10 +4,8 @@ var startBtn = document.getElementById('start');
 var questionEl = document.getElementById('question-prompt');
 var answerEl = document.getElementById('answers-prompt');
 var resultEl = document.getElementById('result-prompt');
-var buttonEl1 = document.getElementById('btn1');
-var buttonEl2 = document.getElementById('btn2');
-var buttonEl3 = document.getElementById('btn3');
-var buttonEl4 = document.getElementById('btn4');
+var inputEl = document.getElementById('input-initials');
+var beginEl = document.getElementById('begin');
 var questions = [
     
     {q: "Inside which HTML element do we put the JavaScript?", 
@@ -63,18 +61,21 @@ var questions = [
 ];
 
 
+var timeLeft = 90;
+var interval;
 
 function countdown() {
-    var timeLeft = 10;
 
+    timerEl.textContent = "Time: " + timeLeft;
+    timeLeft--;
 
-    var timeInterval = setInterval(function () {
-        timerEl.textContent = "Time: " + timeLeft;
-        timeLeft--;
-    }, 1000);
+    if (timeLeft <= 0) {
+    
+        quizEnd();
+    }
+}
 
-    if(timeLeft <= 0)
-    quizEnd();
+function testing () {
 }
 
 var questionNumber = 0;
@@ -82,43 +83,65 @@ var count = 0;
 
 function score() {
 
-    countdown();
+    beginEl.setAttribute('class', "invisible");
+    answerEl.removeAttribute('class');
+    interval = setInterval(countdown, 1000);
+    showAnswer();
 
-    for (var i = 0; i < questions.length + 1; i++) {
-        questionEl.textContent = [questions[i].q];
-        buttonEl1.textContent = [questions[i].a[0]];
-        buttonEl2.textContent = [questions[i].a[1]];
-        buttonEl3.textContent = [questions[i].a[2]];
-        buttonEl4.textContent = [questions[i].a[3]];
-
-        var answerSelected = document.addEventListener("click", function(event){
-            event.preventDefault();
-        });        
-
-        if (answerSelected === questions[i].correctAnswer) {
-            count++;
-            resultEl.textContent = "Correct!";
-            console.log(answerSelected);
-        } else {
-            resultEl.textContent = "Wrong!";
-            console.log(answerSelected);
-        }
-
-        if (questionNumber === questions.length) {
-            quizEnd();
-        }
-    }
 };
 
+
+function showAnswer () {
+
+    var currentQ = questions[questionNumber];
+    questionEl.textContent = currentQ.q;
+
+    answerEl.innerHTML = "";
+
+    for (var i = 0; i < currentQ.a.length; i++) {
+        // buttonEl1.textContent = [currentQ.a[i]];
+        // buttonEl2.textContent = [currentQ.a[i] + 1];
+        // buttonEl3.textContent = [currentQ.a[i] + 2];
+        // buttonEl4.textContent = [currentQ.a[i] + 3];
+
+        var button = document.createElement("button");
+        button.textContent = [currentQ.a[i]];
+        button.setAttribute("value", currentQ.a[i]);
+        button.onclick = checkScore;
+        answerEl.append(button);
+    }
+
+}
+
+function checkScore () {
+
+    if (this.value === questions[questionNumber].correctAnswer) {
+        count++;
+        resultEl.textContent = "Correct!";
+    } else {
+        resultEl.textContent = "Wrong!";
+        timeLeft -= 15;
+    }
+
+    questionNumber ++;
+
+    if (questionNumber === questions.length) {
+        quizEnd();
+    } else {
+        showAnswer();
+    }
+
+}
+
 function quizEnd () {
-    clearInterval(timeInterval);
+    inputEl.removeAttribute("class");
+    clearInterval(interval);
     questionEl.textContent = "Your score is " + count + "/" + questions.length;
 
-    var saveInitials = answerEl.style.display = "block";
     answerEl.textContent = "Enter your initials";
+
     var submitInitials = document.createElement("start");
     submitInitials.textContent = "Submit";
-    saveScore();
 }
 
 function saveScore () {
@@ -126,3 +149,4 @@ function saveScore () {
 };
 
 startBtn.onclick = score;
+
