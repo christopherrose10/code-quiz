@@ -6,6 +6,7 @@ var questionEl = document.getElementById('question-prompt');
 var answerEl = document.getElementById('answers-prompt');
 var resultEl = document.getElementById('result-prompt');
 var inputEl = document.getElementById('input-initials');
+var initialsEl = document.getElementById('initials');
 var beginEl = document.getElementById('begin');
 var scoreBoardEl = document.getElementById('scoreboard');
 var questions = [
@@ -77,16 +78,14 @@ function countdown() {
     }
 }
 
-function testing () {
-}
 
 var questionNumber = 0;
 var count = 0;
 
 function score() {
 
-    beginEl.setAttribute('class', "invisible");
-    answerEl.removeAttribute('class');
+    beginEl.setAttribute("class", "invisible");
+    answerEl.removeAttribute("class");
     interval = setInterval(countdown, 1000);
     showAnswer();
 
@@ -145,17 +144,26 @@ function quizEnd () {
 
     answerEl.textContent = "Enter your initials";
 
-    var submitInitials = document.createElement("start");
-    submitInitials.textContent = "Submit";
-    submitInitials.onclick = saveScore;
+    var submitInitials = document.getElementById("submit");
+
+    submitInitials.addEventListener("click", saveScore);
 }
 
 function saveScore () {
-    localStorage.setItem("Initials", JSON.stringify(inputEl));
+
+    var initialsEl = document.querySelector("#initials");
+    var initialsSavedEl = initialsEl.value.trim();
+
+    var saveQuizScore = {Initials: initialsSavedEl,
+    Score: count};
+    
+    localStorage.setItem("Initials", JSON.stringify(saveQuizScore));
+
     scoreBoardDisplay();
 };
 
 function scoreBoardDisplay () {
+    
     scoreBoardEl.removeAttribute("class");
     questionEl.textContent = "High Scores";
     answerEl.textContent = "";
