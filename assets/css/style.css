@@ -1,0 +1,63 @@
+:root {
+    --primary-color: rgb(1, 0, 85);
+    --secondary-color: rgb(54, 54, 54);
+    --text-color: rgb(27, 255, 206);
+    --font: 'Roboto Slab';
+}
+
+.body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: var(--font);
+}
+
+
+.header {
+    padding: 20px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scoreboard, .timer, .score {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.timer, .score {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.main {
+    margin: auto;
+    width: 100%;
+    height: 100px;
+    text-align: center;  
+}
+
+main button {
+    background: var(--primary-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 2.2rem;
+    border-radius: 12px;
+    position: relative;
+    top: -3px;
+    font: var(--font);
+}
+
+main button:hover {
+    background: var(--text-color);
+    color: var(--primary-color);
+    border-color: var(--text-color);
+}
+
+.invisible {
+    display: none;
+}
