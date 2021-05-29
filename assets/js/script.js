@@ -149,10 +149,13 @@ function quizEnd () {
     submitInitials.addEventListener("click", saveScore);
 }
 
+var initialsSavedEl;
+var saveQuizScore;
+
 function saveScore () {
 
     var initialsEl = document.querySelector("#initials");
-    var initialsSavedEl = initialsEl.value.trim();
+    initialsSavedEl = initialsEl.value.trim();
 
     var saveQuizScore = {Initials: initialsSavedEl,
     Score: count};
@@ -163,10 +166,16 @@ function saveScore () {
 };
 
 function scoreBoardDisplay () {
-    
+
+    inputEl.setAttribute('class', "invisible");
+
     scoreBoardEl.removeAttribute("class");
     questionEl.textContent = "High Scores";
-    answerEl.textContent = "";
+    answerEl.textContent = initialsSavedEl + ": " + count;
+
+    var highScores = JSON.parse(localStorage.getItem('saveQuizScore')) || [];
+    highScores;
+    
 }
 
 startBtn.onclick = score;
