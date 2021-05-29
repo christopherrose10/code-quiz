@@ -1,4 +1,5 @@
 var timerEl = document.getElementById('countdown');
+var scoreEl = document.getElementById('count');
 var mainEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
 var questionEl = document.getElementById('question-prompt');
@@ -6,6 +7,7 @@ var answerEl = document.getElementById('answers-prompt');
 var resultEl = document.getElementById('result-prompt');
 var inputEl = document.getElementById('input-initials');
 var beginEl = document.getElementById('begin');
+var scoreBoardEl = document.getElementById('scoreboard');
 var questions = [
     
     {q: "Inside which HTML element do we put the JavaScript?", 
@@ -99,10 +101,6 @@ function showAnswer () {
     answerEl.innerHTML = "";
 
     for (var i = 0; i < currentQ.a.length; i++) {
-        // buttonEl1.textContent = [currentQ.a[i]];
-        // buttonEl2.textContent = [currentQ.a[i] + 1];
-        // buttonEl3.textContent = [currentQ.a[i] + 2];
-        // buttonEl4.textContent = [currentQ.a[i] + 3];
 
         var button = document.createElement("button");
         button.textContent = [currentQ.a[i]];
@@ -123,6 +121,8 @@ function checkScore () {
         timeLeft -= 15;
     }
 
+    scoreEl.textContent = "Score: " + count;
+
     questionNumber ++;
 
     if (questionNumber === questions.length) {
@@ -134,19 +134,32 @@ function checkScore () {
 }
 
 function quizEnd () {
+
+    resultEl.setAttribute('class', "invisible");
+
     inputEl.removeAttribute("class");
     clearInterval(interval);
+    timerEl.setAttribute('class', "invisible");
+
     questionEl.textContent = "Your score is " + count + "/" + questions.length;
 
     answerEl.textContent = "Enter your initials";
 
     var submitInitials = document.createElement("start");
     submitInitials.textContent = "Submit";
+    submitInitials.onclick = saveScore;
 }
 
 function saveScore () {
-    localStorage.setItem("Initials", JSON.stringify(saveInitials && count))
+    localStorage.setItem("Initials", JSON.stringify(inputEl));
+    scoreBoardDisplay();
 };
+
+function scoreBoardDisplay () {
+    scoreBoardEl.removeAttribute("class");
+    questionEl.textContent = "High Scores";
+    answerEl.textContent = "";
+}
 
 startBtn.onclick = score;
 
